@@ -1,4 +1,4 @@
-package falcon
+package falconsdk
 
 import (
     "sync"

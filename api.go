@@ -1,4 +1,4 @@
-package falcon
+package falconsdk
 
 const (
     apiBaseUrl = "https://api.crowdstrike.com"
