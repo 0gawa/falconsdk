@@ -3,6 +3,7 @@ package falconsdk
 import (
     "fmt"
     "time"
+    "strconv"
     "io/ioutil"
     "bufio"
     "net/http"
@@ -274,7 +275,7 @@ func (client *clientImpl) StartStreaming(appId string, offset int64, callback Ev
             }
             if offset > 0 {
                 q := req.URL.Query()
-                q.Add("offset", offset)
+                q.Add("offset", strconv.FormatInt(offset,10))
                 req.URL.RawQuery = q.Encode()
             }
             req.Header.Add("Authorization", fmt.Sprintf("Token %s", token))
