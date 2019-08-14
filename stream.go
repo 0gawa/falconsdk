@@ -259,7 +259,7 @@ func (client clientImpl) discoverStream(appId string) *discoverStreamResult {
     return &result
 }
 
-func (client *clientImpl) StartStreaming(appId string, callback EventSubscriber) {
+func (client *clientImpl) StartStreaming(appId string, offset int64, callback EventSubscriber) {
     discoverResult := client.discoverStream(appId)
     for _, streamInfo := range discoverResult.Resources {
         url := streamInfo.DataFeedURL
@@ -271,6 +271,11 @@ func (client *clientImpl) StartStreaming(appId string, callback EventSubscriber)
             req, err := http.NewRequest("GET", url, nil)
             if err != nil {
                 panic(err)
+            }
+            if offset > 0 {
+                q := req.URL.Query()
+                q.Add("offset", offset)
+                req.URL.RawQuery = q.Encode()
             }
             req.Header.Add("Authorization", fmt.Sprintf("Token %s", token))
             req.Header.Add("Accept", "application/json")

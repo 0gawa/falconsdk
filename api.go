@@ -9,6 +9,6 @@ const (
 
 type FalconApi interface {
     FindDetections(q string) []string
-    StartStreaming(appId string, subscriber EventSubscriber)
+    StartStreaming(appId string, offset int64, subscriber EventSubscriber)
 }
 
