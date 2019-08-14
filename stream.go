@@ -295,7 +295,9 @@ func (client *clientImpl) StartStreaming(appId string, offset int64, callback Ev
                         if err := json.Unmarshal([]byte(text), &streamEvent); err != nil {
                             panic(err)
                         }
-                        ch <- &streamEvent
+                        if streamEvent.Metadata.Offset > offset {
+                            ch <- &streamEvent
+                        }
                     }
                 }
             }
